@@ -1,0 +1,60 @@
+def calculate_cosmic_distance(speed_of_light_fraction, time_years):
+    return speed_of_light_fraction * time_years
+
+def calculate_simplified_gravity(mass1, mass2, cosmic_factor=1.0):
+    return mass1 * mass2 * cosmic_factor
+
+def calculate_time_dilation_approximation(speed_of_light_fraction, time_seconds):
+    if speed_of_light_fraction >= 1:
+        raise ValueError("Частка швидкості світла повинна бути менше 1.")
+    return time_seconds / (1 - speed_of_light_fraction)
+
+def get_float_input(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Помилка: потрібно ввести числове значення. Спробуйте ще раз.")
+
+def main():
+    print("Вітаємо у Калькуляторі 'Таємниці Всесвіту'!")
+
+    while True:
+        print("\nОберіть розрахунок:")
+        print("1 - Космічна відстань")
+        print("2 - Спрощена гравітація")
+        print("3 - Наближення сповільнення часу")
+        print("4 - Вихід")
+
+        choice = input("Ваш вибір: ")
+
+        if choice == "1":
+            speed = get_float_input("Введіть частку швидкості світла (від 0 до 1): ")
+            time = get_float_input("Введіть час у роках: ")
+            distance = calculate_cosmic_distance(speed, time)
+            print(f"Приблизна космічна відстань становить: {distance} світлових років.")
+
+        elif choice == "2":
+            mass1 = get_float_input("Введіть масу першого об'єкта: ")
+            mass2 = get_float_input("Введіть масу другого об'єкта: ")
+            factor = get_float_input("Введіть космічний фактор (або натисніть Enter для 1.0): ") or 1.0
+            gravity = calculate_simplified_gravity(mass1, mass2, float(factor))
+            print(f"Спрощена гравітаційна взаємодія: {gravity}")
+
+        elif choice == "3":
+            try:
+                speed = get_float_input("Введіть частку швидкості світла (менше 1): ")
+                time = get_float_input("Введіть час у секундах: ")
+                dilation = calculate_time_dilation_approximation(speed, time)
+                print(f"Сповільнення часу (наближено): {dilation} секунд.")
+            except ValueError as e:
+                print(f"Помилка: {e}")
+
+        elif choice == "4":
+            print("Дякуємо за використання калькулятора! До зустрічі у космосі!")
+            break
+        else:
+            print("Невірний вибір. Спробуйте ще раз.")
+
+if __name__ == "__main__":
+    main()
